@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>標題</title>
+    <meta charset="utf-8"/>
+    <meta name="viewwport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="./css/main.css"/>
+    <script src="./js/universal.js"></script>
+    <script src="./js/data_table.js"></script>
+    <script src="./js/input_area.js"></script>
+    <script src="./js/keyboard.js"></script>
+    <script src="./js/msg_list.js"></script>
+    <script src="./js/role_list.js"></script>
+    <script src="./js/post.js"></script>
+  </head>
+  <body>
+    <div id="keyboard_holder">
+      <select id="lang_select"></select>
+      <div id="keyboard"></div>
+    </div>
+    <main id="main">
+      <div id="role_list">
+        <h3>角色列表</h3>
+        <button id="add_role_btn" onclick="RoleMgr.create_new()">＋</button>
+        <div id="roles_el"></div>
+      </div>
+      <div id="msg_list"></div>
+      <div id="input_area"></div>
+      <!-- <iframe id="draw_chat" src="https://api.draw.chat/dc2fbs0bt2ibwzn6fnx6c56hm1iv9t:t5vxuqwarv658wj5avtjtqsmxbemvg2vu2pi"></iframe> -->
+    </main>
+  </body>
+</html>

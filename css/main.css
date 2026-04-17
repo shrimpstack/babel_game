@@ -1,0 +1,291 @@
+/* ================================ */
+/*  主要                            */
+/* ================================ */
+body {
+  margin: 0;
+  background: #eee;
+}
+#main {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  grid-template-rows: 1fr auto;
+  gap: 0 16px;
+  grid-template-areas:
+    "role_list msg_list draw_chat"
+    "role_list input_area draw_chat";
+}
+
+/* ================================ */
+/*  角色列表                        */
+/* ================================ */
+#role_list {
+  grid-area: role_list;
+  background: #333;
+  border-radius: 8px;
+  width: 300px;
+  padding: 8px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto 1fr;
+  gap: 16px;
+}
+#role_list h3 {
+  all: unset;
+  text-align: center;
+  color: #fff;
+  font-size: 22px;
+}
+#roles_el {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden auto;
+  gap: 8px;
+  grid-column: 2 span;
+}
+#roles_el .role {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    "img name del"
+    "img url del";
+  align-items: center;
+  gap: 4px 8px;
+  padding: 4px;
+  border-radius: 4px;
+}
+#roles_el .role.active {
+  background: #6f75af;
+}
+#roles_el .role img {
+  grid-area: img;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #eee;
+  object-fit: cover;
+}
+#roles_el .role .name { grid-area: name; }
+#roles_el .role .img_url { grid-area: url; }
+#roles_el .role input {
+  all: unset;
+  background: #fff;
+  height: 22px;
+  padding: 0 4px;
+  border-radius: 4px;
+}
+#roles_el .role .del_btn, #add_role_btn {
+  all: unset;
+  background: #fff;
+  font-family: monospace;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 18px;
+  cursor: pointer;
+}
+#roles_el .role .del_btn {
+  grid-area: del;
+}
+#add_role_btn {
+  align-self: center;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* ================================ */
+/*  訊息列表                        */
+/* ================================ */
+#msg_list {
+  grid-area: msg_list;
+  background: #fff;
+  border-radius: 8px 8px 0 0;
+  padding: 8px;
+  border: 2px solid #333;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden auto;
+  scroll-behavior: smooth;
+}
+#msg_list .msg {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  justify-items: start;
+  gap: 4px 8px;
+  padding: 12px 0;
+  line-height: 24px;
+  font-size: 18px;
+  font-family: system-ui;
+  align-items: end;
+}
+#msg_list .msg img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #eee;
+  object-fit: cover;
+}
+#msg_list .msg .cnt {
+  grid-column: 2 span;
+  display: flex;
+  flex-wrap: wrap;
+  --size: 32px;
+  background: #eee;
+  border-radius: 8px;
+  padding: 4px;
+  max-width: 416px;
+}
+#msg_list .msg.self {
+  grid-template-columns: 1fr auto;
+  justify-items: end;
+}
+#msg_list .msg.self .name {
+  order: -1;
+}
+#msg_list .msg.self .cnt {
+  background: #c0d3f6;
+}
+
+/* ================================ */
+/*  輸入區                          */
+/* ================================ */
+#input_area {
+  grid-area: input_area;
+  padding: 8px;
+  --size: 32px;
+  display: grid;
+  grid-template-columns: repeat(16, var(--size));
+  grid-template-rows: repeat(4, var(--size));
+  background: #fff;
+  border-radius: 0 0 8px 8px;
+  border: 2px solid #333;
+  border-top: 0;
+}
+#input_area char { position: relative; }
+#input_area[disabled] { background: #aaa; }
+#input_area[disabled] char { opacity: .7; }
+#input_area .active:before {
+  content: "";
+  position: absolute;
+  right: 100%;
+  top: 0;
+  width: 6px;
+  margin-right: -3px;
+  height: 100%;
+  --cursor_color: #333;
+  background:
+    linear-gradient(var(--cursor_color)) no-repeat top / 100% 2px,
+    linear-gradient(var(--cursor_color)) no-repeat bottom / 100% 2px,
+    linear-gradient(var(--cursor_color)) no-repeat center / 2px 100%;
+  animation: 2s linear infinite flash;
+}
+#input_area[disabled] .active:before { display: none; }
+@keyframes flash {
+  0% { --cursor_color: #333; }
+  100% { --cursor_color: #0000; }
+}
+
+/* ================================ */
+/*  白板                          */
+/* ================================ */
+#draw_chat {
+  all: unset;
+  grid-area: draw_chat;
+  width: 100%;
+  height: 100%;
+}
+
+/* ================================ */
+/*  鍵盤                            */
+/* ================================ */
+#keyboard_holder {
+  position: fixed;
+  z-index: 200;
+  backdrop-filter: blur(2px);
+  background: #0006;
+  border-radius:8px;
+  padding: 12px;
+  bottom: 0;
+  right: 0;
+  display: grid;
+  gap: 8px;
+  justify-items: end;
+}
+#lang_select {
+  all: unset;
+  background: #fff;
+  min-width: 200px;
+  height: 28px;
+  line-height: 28px;
+  border-radius: 4px;
+  text-align: right;
+  padding: 0 8px;
+}
+#keyboard {
+  display: grid;
+  grid-template-columns: repeat(42, 18px);
+  grid-template-rows: repeat(4, 54px);
+  justify-items: center;
+  gap: 2px;
+}
+#keyboard char, #keyboard .tool_key {
+  grid-column: 3 span;
+  background:
+    linear-gradient(#eee) content-box,
+    linear-gradient(#eee) no-repeat center / 4px 54px,
+    linear-gradient(#eee) no-repeat center / 54px 4px;
+  border-radius: 8px;
+  border: 3px solid #0000;
+  filter: drop-shadow(2px 2px 1px #0002);
+  width: 48px;
+  height: 48px;
+  --size: 48px;
+}
+#keyboard .tool_key:after { content: ""; display: block; width: 100%; height: 100%; }
+#keyboard .tool_key.left:after { background-image: url(../btn_left.png); }
+#keyboard .tool_key.right:after { background-image: url(../btn_right.png); }
+#keyboard .tool_key.del:after { background-image: url(../btn_del.png); }
+#keyboard .tool_key.send:after { background-image: url(../btn_send.png); }
+char:after {
+  content: "";
+  display: block;
+  --_cols: var(--cols, 8);
+  --_size: var(--size, 48px);
+  width: var(--_size);
+  height: var(--_size);
+  --_i: var(--i, -1);
+  --c: mod(var(--_i), var(--_cols));
+  --r: calc((var(--_i) - var(--c)) / var(--_cols));
+  background-repeat: no-repeat;
+  background-image: var(--char_img);
+  background-size: calc(var(--_size) * var(--_cols));
+  background-position: calc(var(--_size) * -1 * var(--c)) calc(var(--_size) * -1 * var(--r));
+}
+char { display: none; }
+[k] char { display: block; }
+
+/* ================================ */
+/*  語言的圖片設定                  */
+/* ================================ */
+[k="朝聖者"] {
+  --char_img: url(../char/朝聖者.png);
+  --cols: 8;
+}
+[k="戰士"] {
+  --char_img: url(../char/戰士.png);
+  --cols: 8;
+}
+[k="吟遊詩人"] {
+  --char_img: url(../char/吟遊詩人.png);
+  --cols: 8;
+}
+[k="煉金術師"] {
+  --char_img: url(../char/煉金術師.png);
+  --cols: 8;
+}
