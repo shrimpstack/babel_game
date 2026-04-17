@@ -214,8 +214,13 @@ body {
   bottom: 0;
   right: 0;
   display: grid;
+  grid-template-columns: auto 1fr;
   gap: 8px;
   justify-items: end;
+}
+#keyboard_holder.close {
+  bottom: -234px;
+  right: -812px;
 }
 #lang_select {
   all: unset;
@@ -227,7 +232,21 @@ body {
   text-align: right;
   padding: 0 8px;
 }
+#keyboard_switch {
+  all: unset;
+  width: 28px;
+  height: 28px;
+  background: #fff;
+  border-radius: 4px;
+  font-size: 18px;
+  font-family: system-ui;
+  cursor: pointer;
+  text-align: center;
+}
+#keyboard_switch:after { content: "↘"; }
+#keyboard_holder.close #keyboard_switch:after { content: "↖"; }
 #keyboard {
+  grid-column: 2 span;
   display: grid;
   grid-template-columns: repeat(42, 18px);
   grid-template-rows: repeat(4, 54px);
