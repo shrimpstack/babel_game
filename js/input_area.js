@@ -4,9 +4,6 @@ const InputArea = (() => {
   window.addEventListener("load", () => {
     InputArea.k = "朝聖者";
     input_area.addEventListener("click", ({target}) => on_click(target));
-    input_area.addEventListener("focus", () => {
-      console.log("a");
-    });
     document.addEventListener("click", ({target}) => {
       if(target.closest("#input_area, #keyboard")) return;
       clear_avtive();
@@ -58,7 +55,7 @@ const InputArea = (() => {
     get: () => input_area.getAttribute("k"),
     set: (val) => {
       input_area.setAttribute("k", val);
-      Keyboard.change_lang(val);
+      input_area.innerHTML = "";
     },
   });
 
@@ -68,6 +65,7 @@ const InputArea = (() => {
   Object.defineProperty(obj, "word_input", { get: () => word_input });
   function word_input(word) {
     if(InputArea.disabled) return;
+    input_area.classList.add("focus");
     let full = [...find_all(input_area, "char:not(#input_adder)")].length + 1 >= 64;
     if(full) return;
     let char_el = word_to_char(InputArea.k, word);

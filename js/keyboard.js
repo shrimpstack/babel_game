@@ -6,7 +6,11 @@ const Keyboard = (() => {
     Object.keys(data_table).forEach(keysname => {
       new_el_to_el(lang_select, "option", {value: keysname}, keysname);
     });
-    lang_select.addEventListener("change", () => InputArea.k = lang_select.value);
+    lang_select.addEventListener("change", () => {
+      InputArea.k = lang_select.value;
+      change_lang(lang_select.value);
+    });
+    change_lang(InputArea.k);
   });
 
   window.addEventListener("keydown", event => {
