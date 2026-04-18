@@ -19,6 +19,9 @@ body {
     "role_list msg_list draw_chat"
     "role_list input_area draw_chat";
 }
+input::placeholder {
+  opacity: .5;
+}
 
 /* ================================ */
 /*  角色列表                        */

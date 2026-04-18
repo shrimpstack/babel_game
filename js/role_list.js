@@ -36,8 +36,8 @@ const RoleMgr = (() => {
     if(roles_el.childElementCount >= 12) return;
     let role_el = new_el_to_el(roles_el, "div.role", [
       new_el("img"),
-      new_el("input.name"),
-      new_el("input.img_url"),
+      new_el("input.name", {placeholder: "名字"}),
+      new_el("input.img_url", {placeholder: "圖片網址"}),
       new_el("button.del_btn", "X"),
     ]);
     role_el.addEventListener("click", ({target}) => {
