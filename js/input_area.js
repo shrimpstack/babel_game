@@ -60,14 +60,36 @@ const InputArea = (() => {
   });
 
   /* ================================ */
+  /*  取得                            */
+  /* ================================ */
+  Object.defineProperty(obj, "length", {
+    get: () => {
+      return [...find_all(input_area, "char[word]")].length;
+    },
+  });
+  Object.defineProperty(obj, "last_char", {
+    get: () => {
+      return [...find_all(input_area, "[word]")].pop();
+    },
+  });
+
+  /* ================================ */
   /*  輸入文字                        */
   /* ================================ */
   Object.defineProperty(obj, "word_input", { get: () => word_input });
   function word_input(word) {
     if(InputArea.disabled) return;
     input_area.classList.add("focus");
-    let full = [...find_all(input_area, "char:not(#input_adder)")].length + 1 >= 64;
-    if(full) return;
+    if(InputArea.length + 1 >= 64) return;
+    let last_char = InputArea.last_char;
+    if(last_char) {
+      let last_word = last_char.getAttribute("word");
+      let new_word = word_and_word(InputArea.k, last_word, word);
+      if(new_word != word) {
+        last_char.remove();
+        word = new_word;
+      }
+    }
     let char_el = word_to_char(InputArea.k, word);
     if(!char_el) return;
     let cursor = InputArea.cur_char;
@@ -115,15 +137,24 @@ const InputArea = (() => {
   // text = js字串，格式： word,word,word
   // char = char_el
 
+  function word_and_word(keysname, word_a, word_b) {
+    let combo = data_table[keysname]?.combo;
+    return combo?.[`${word_a}+${word_b}`] || word_b
+  }
+
   Object.defineProperty(obj, "word_to_char", { get: () => word_to_char });
   function word_to_char(keysname, word) {
     word = word.trim();
     if(!word) return null;
     let words = data_table[keysname]?.words;
     if(!words) return null;
-    let i = words.indexOf(word);
-    if(i != -1) return new_el("char", {word, style: `--i:${i};`});
-    else return null;
+    let i_arr = word.split(/\[|\]/).filter(w => w).map(w => words.indexOf(w)).filter(i => i != -1);
+    if(i_arr.length == 0) return null;
+    let char_el = new_el("char", {word});
+    char_el.style.setProperty("--i", i_arr[0]);
+    if(i_arr[1]) char_el.style.setProperty("--i1", i_arr[1]);
+    if(i_arr[2]) char_el.style.setProperty("--i2", i_arr[2]);
+    return char_el;
   }
 
   Object.defineProperty(obj, "text_to_chars", { get: () => text_to_chars });

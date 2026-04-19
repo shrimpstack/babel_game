@@ -287,7 +287,22 @@ char:after {
   background-repeat: no-repeat;
   background-image: var(--char_img);
   background-size: calc(var(--_size) * var(--_cols));
-  background-position: calc(var(--_size) * -1 * var(--c)) calc(var(--_size) * -1 * var(--r));
+  background-position:
+    calc(var(--_size) * -1 * var(--c)) calc(var(--_size) * -1 * var(--r)),
+    calc(var(--_size) * -1 * var(--c1, 0)) calc(var(--_size) * -1 * var(--r1, 0)),
+    calc(var(--_size) * -1 * var(--c2, 0)) calc(var(--_size) * -1 * var(--r2, 0));
+}
+char[style*="--i1"]:after{
+  --_i1: var(--i1, -1);
+  --c1: mod(var(--_i1), var(--_cols));
+  --r1: calc((var(--_i1) - var(--c1)) / var(--_cols));
+  background-image: var(--char_img), var(--char_img);
+}
+char[style*="--i2"]:after{
+  --_i2: var(--i2, -1);
+  --c2: mod(var(--_i2), var(--_cols));
+  --r2: calc((var(--_i2) - var(--c2)) / var(--_cols));
+  background-image: var(--char_img), var(--char_img), var(--char_img);
 }
 char { display: none; }
 [k] char { display: block; }
