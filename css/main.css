@@ -268,7 +268,11 @@ input::placeholder {
   width: 48px;
   height: 48px;
   --size: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+#keyboard[k="吟遊詩人"] char { --size: 38px; }
 #keyboard .tool_key:after { content: ""; display: block; width: 100%; height: 100%; }
 #keyboard .tool_key.left:after { background-image: url(../btn_left.png); }
 #keyboard .tool_key.right:after { background-image: url(../btn_right.png); }
