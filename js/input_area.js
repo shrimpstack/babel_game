@@ -67,11 +67,6 @@ const InputArea = (() => {
       return [...find_all(input_area, "char[word]")].length;
     },
   });
-  Object.defineProperty(obj, "last_char", {
-    get: () => {
-      return [...find_all(input_area, "[word]")].pop();
-    },
-  });
 
   /* ================================ */
   /*  輸入文字                        */
@@ -81,18 +76,18 @@ const InputArea = (() => {
     if(InputArea.disabled) return;
     input_area.classList.add("focus");
     if(InputArea.length + 1 >= 64) return;
-    let last_char = InputArea.last_char;
-    if(last_char) {
-      let last_word = last_char.getAttribute("word");
+    let cursor = InputArea.cur_char;
+    let prev_char = cursor.previousElementSibling;
+    if(prev_char) {
+      let last_word = prev_char.getAttribute("word");
       let new_word = word_and_word(InputArea.k, last_word, word);
       if(new_word != word) {
-        last_char.remove();
+        prev_char.remove();
         word = new_word;
       }
     }
     let char_el = word_to_char(InputArea.k, word);
     if(!char_el) return;
-    let cursor = InputArea.cur_char;
     cursor.before(char_el);
     clear_avtive();
     cursor.classList.add("active");

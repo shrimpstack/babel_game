@@ -330,3 +330,7 @@ char { display: none; }
   --char_img: url(../char/煉金術師.png);
   --cols: 8;
 }
+[k="列車機械士"] {
+  --char_img: url(../char/列車機械士.png);
+  --cols: 10;
+}
