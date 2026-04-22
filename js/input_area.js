@@ -143,12 +143,7 @@ const InputArea = (() => {
     if(!word) return null;
     let words = data_table[keysname]?.words;
     if(!words) return null;
-    let i_arr = word.split(/\[|\]/).filter(w => w).map(w => words.indexOf(w)).filter(i => i != -1);
-    if(i_arr.length == 0) return null;
-    let char_el = new_el("char", {word});
-    char_el.style.setProperty("--i", i_arr[0]);
-    if(i_arr[1]) char_el.style.setProperty("--i1", i_arr[1]);
-    if(i_arr[2]) char_el.style.setProperty("--i2", i_arr[2]);
+    let char_el = word_to_char_by_words(words, word);
     return char_el;
   }
 
@@ -157,9 +152,19 @@ const InputArea = (() => {
     let words = data_table[keysname]?.words;
     if(!words) return null;
     return text.split(",").map(word => {
-      let i = words.indexOf(word);
-      if(i != -1) return new_el("char", {word, style: `--i:${i};`});
+      let char_el = word_to_char_by_words(words, word);
+      return char_el;
     }).filter(v => v);
+  }
+  
+  function word_to_char_by_words(words, word) {
+    let i_arr = word.split(/\[|\]/).filter(w => w).map(w => words.indexOf(w)).filter(i => i != -1);
+    if(i_arr.length == 0) return null;
+    let char_el = new_el("char", {word});
+    char_el.style.setProperty("--i", i_arr[0]);
+    if(i_arr[1]) char_el.style.setProperty("--i1", i_arr[1]);
+    if(i_arr[2]) char_el.style.setProperty("--i2", i_arr[2]);
+    return char_el;
   }
 
   return obj;
