@@ -272,7 +272,7 @@ input::placeholder {
 #keyboard .tool_key.right:after { background-image: url(../btn_right.png); }
 #keyboard .tool_key.del:after { background-image: url(../btn_del.png); }
 #keyboard .tool_key.send:after { background-image: url(../btn_send.png); }
-char { --i: 0; --i1: 0; --i2: 0; }
+char { --i: -1; --i1: -1; --i2: -1; }
 char:after {
   content: "";
   display: block;
