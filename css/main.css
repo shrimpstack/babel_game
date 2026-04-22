@@ -182,10 +182,7 @@ input::placeholder {
   margin-right: -3px;
   height: 100%;
   --cursor_color: #333;
-  background:
-    linear-gradient(var(--cursor_color)) no-repeat top / 100% 2px,
-    linear-gradient(var(--cursor_color)) no-repeat bottom / 100% 2px,
-    linear-gradient(var(--cursor_color)) no-repeat center / 2px 100%;
+  background: linear-gradient(var(--cursor_color)) no-repeat top / 100% 2px, linear-gradient(var(--cursor_color)) no-repeat bottom / 100% 2px, linear-gradient(var(--cursor_color)) no-repeat center / 2px 100%;
   animation: 2s linear infinite flash;
 }
 #input_area[disabled] .active:before { display: none; }
@@ -258,10 +255,7 @@ input::placeholder {
 }
 #keyboard char, #keyboard .tool_key {
   grid-column: 3 span;
-  background:
-    linear-gradient(#eee) content-box,
-    linear-gradient(#eee) no-repeat center / 4px 54px,
-    linear-gradient(#eee) no-repeat center / 54px 4px;
+  background: linear-gradient(#eee) content-box, linear-gradient(#eee) no-repeat center / 4px 54px, linear-gradient(#eee) no-repeat center / 54px 4px;
   border-radius: 8px;
   border: 3px solid #0000;
   filter: drop-shadow(2px 2px 1px #0002);
@@ -278,6 +272,7 @@ input::placeholder {
 #keyboard .tool_key.right:after { background-image: url(../btn_right.png); }
 #keyboard .tool_key.del:after { background-image: url(../btn_del.png); }
 #keyboard .tool_key.send:after { background-image: url(../btn_send.png); }
+char { --i: 0; --i1: 0; --i2: 0; }
 char:after {
   content: "";
   display: block;
@@ -291,10 +286,7 @@ char:after {
   background-repeat: no-repeat;
   background-image: var(--char_img);
   background-size: calc(var(--_size) * var(--_cols));
-  background-position:
-    calc(var(--_size) * -1 * var(--c)) calc(var(--_size) * -1 * var(--r)),
-    calc(var(--_size) * -1 * var(--c1, 0)) calc(var(--_size) * -1 * var(--r1, 0)),
-    calc(var(--_size) * -1 * var(--c2, 0)) calc(var(--_size) * -1 * var(--r2, 0));
+  background-position: calc(var(--_size) * -1 * var(--c)) calc(var(--_size) * -1 * var(--r)), calc(var(--_size) * -1 * var(--c1, 0)) calc(var(--_size) * -1 * var(--r1, 0)), calc(var(--_size) * -1 * var(--c2, 0)) calc(var(--_size) * -1 * var(--r2, 0));
 }
 char[style*="--i1"]:after{
   --_i1: var(--i1, -1);
